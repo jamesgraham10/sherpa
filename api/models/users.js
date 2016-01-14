@@ -9,7 +9,7 @@ let mongoose = require('mongoose'),
 
 let userSchema = new Schema({
     email: { type : String, unique : true, required : true },
-    name: { type : String, required : true },
+    name: { type : String },
     salt: String,
     hash: String,
     todos: [todosSchema]

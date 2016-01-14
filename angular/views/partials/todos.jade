@@ -1,0 +1,15 @@
+{{todosCtrl.error}}
+div.row
+    h1.heading TODOS
+div.row
+  .flex.todo__b-create
+    form(ng-submit="todosCtrl.createTodo(todo)").form-inline
+        input(type="text", ng-model="todo.todo" ng-keydown="todosCtrl.error = ''").todo-create__input
+        //- button(type="submit").btn.btn-default Add!
+
+div(ng-repeat="todo in todosCtrl.todos" ng-init="todo.saved = true").row.flex.todo 
+    input(type="text" ng-model="todo.todo" ng-blur="todosCtrl.saveTodo(todo); todo.saved = true" ng-focus="todo.saved = false").todo__text
+    div.b-todo__icons
+      i(ng-click="todosCtrl.deleteTodo(todo)" tabindex="-1").material-icons.todo__icons.todo__icons--delete clear
+      i(ng-hide="todo.saved" tabindex="-1").material-icons.todo__icons.todo__icons--saved mode_edit
+      i(ng-show="todo.saved" tabindex="-1").material-icons.todo__icons.todo__icons--edit save

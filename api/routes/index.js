@@ -18,6 +18,6 @@ router.put('/todos/:todoid', auth, todosCtrl.update);
 router.delete('/todos/:todoid', auth, todosCtrl.delete);
 
 router.post('/register', authCtrl.register);
-//apiRouter.post('/login', authCtrl.login);
+router.post('/login', authCtrl.login);
 
 module.exports = router;

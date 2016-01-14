@@ -16,10 +16,10 @@ todosCtrl.fetch = (req, res) => {
   if (req.token._id) {
     let userId = req.token._id;
     User.findById(userId, (err, user) => {
-      if (err) { sendJSONResponse(res, 400, err); }
+      if (err) { sendJSONResponse(res, 400, { "reason" : "Todos not found" }); }
       else { sendJSONResponse(res, 200, user.todos); }
     });
-  } else { sendJSONResponse(res, 404, { "message" : "User not found" }); }
+  } else { sendJSONResponse(res, 404, { "reason" : "User not found" }); }
 };
 
 // Create a todo
@@ -32,12 +32,12 @@ todosCtrl.create = (req, res) => {
         todo: req.body.todo
       });
       user.save( (err, user) => {
-        if (err) { sendJSONResponse(res, 400, err); }
+        if (err) { sendJSONResponse(res, 400, { "reason" : "Todo could not be created" }); }
         else { sendJSONResponse(res, 201, user.todos); };
       });
     });
   } else {
-    sendJSONResponse(res, 404, {"message" : "User not found" });
+    sendJSONResponse(res, 404, {"reason" : "User not found" });
   }
 };
 
@@ -51,7 +51,7 @@ todosCtrl.fetchOne = (req, res) => {
       return todo.id === todoId;
     });
     if (todo) { sendJSONResponse(res, 200, todo) }
-    else { sendJSONResponse(res, 404, { "message" : "Todo not found!"}); }
+    else { sendJSONResponse(res, 404, { "reason" : "User not found!"}); }
   });
 };
 
@@ -67,7 +67,7 @@ todosCtrl.update = (req, res) => {
       }
     });
     user.save( (err, user) => {
-      if (err) { sendJSONResponse(res, 400, err); }
+      if (err) { sendJSONResponse(res, 400, { "reason" : "Todo could not be saved!"}); }
       else { sendJSONResponse(res, 201, user.todos); };
     });
   });
@@ -79,14 +79,11 @@ todosCtrl.delete = (req, res) => {
       todoId = req.params.todoid;
 
   User.findById(userId, (err, user) => {
-    user.todos.forEach( (todo) => {
-      if (todo.id === todoId) {
-        let deletePos = user.todos.indexOf(todo);
-        user.todos.splice(deletePos, deletePos + 1);
-      }
+    user.todos = user.todos.filter( (todo) => {
+      return todo.id !== todoId;
     });
     user.save( (err, user) => {
-      if (err) { sendJSONResponse(res, 400, err); }
+      if (err) { sendJSONResponse(res, 400, { "reason" : "Todo could not be deleted!"}); }
       else { sendJSONResponse(res, 201, user.todos); };
     });
   });
