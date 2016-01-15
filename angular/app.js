@@ -5,7 +5,7 @@
   app.config(function($urlRouterProvider, $stateProvider, $locationProvider) {
 
       $locationProvider.html5Mode(true);
-      //$urlRouterProvider.otherwise('/login');
+      $urlRouterProvider.otherwise('/');
 
         $stateProvider
           .state('todos', {
