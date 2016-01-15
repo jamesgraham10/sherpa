@@ -25,14 +25,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }) );
 
-
-if (process.env.NODE_ENV === 'production') {
-  // For production use public
-  app.use(express.static(path.join(__dirname, 'public')));
-} else {
-  // For development (pre-minification) use angular
-  app.use(express.static(path.join(__dirname, 'angular')));
-}
+app.use(express.static(path.join(__dirname, 'angular') ) );
 
 app.use(passport.initialize());
 
