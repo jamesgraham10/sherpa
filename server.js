@@ -42,7 +42,7 @@ app.get('/partials/:partial', (req, res) => {
   res.render(`partials/${partial}`);
 });
 
-// External Routes
+// External Routess
 app.use('/api', routerApi);
 
 // Let Angular take over all other routes
