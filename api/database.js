@@ -2,17 +2,18 @@
 
 let mongoose     = require('mongoose'),
     dbLocal      = 'mongodb://localhost/todo',
-    dbProduction = process.env.MONGOLAB_URI,
+    dbProduction = 'mongodb://jamesgraham:Peacht0p207@ds045785.mongolab.com:45785/meantodo',
     dbPath;
 
 let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
   mongoose.connect(dbLocal);
+  dbPath = dbLocal;
 } else {
   mongoose.connect(dbProduction);
+  dbPath = dbProduction;
 }
-
 
 let db = mongoose.connection;
 
