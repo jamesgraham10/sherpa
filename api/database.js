@@ -5,13 +5,14 @@ let mongoose     = require('mongoose'),
     dbProduction = process.env.MONGOLAB_URI,
     dbPath;
 
-if (process.env.NODE_ENV === 'production') {
-    dbPath = dbProduction;
-  } else {
-    dbPath = dbLocal;
-  }
+let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-mongoose.connect(dbPath);
+if (env === 'development') {
+  mongoose.connect(dbLocal);
+} else {
+  mongoose.connect(dbProduction);
+}
+
 
 let db = mongoose.connection;
 
