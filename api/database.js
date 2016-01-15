@@ -2,7 +2,7 @@
 
 let mongoose     = require('mongoose'),
     dbLocal      = 'mongodb://localhost/todo',
-    dbProduction = process.env.mongolab_uri,
+    dbProduction = process.env.MONGOLAB_URI,
     dbPath;
 
 process.env.NODE_ENV === 'production' ? dbPath = dbProduction : dbPath = dbLocal;

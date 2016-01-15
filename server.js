@@ -54,10 +54,7 @@ app.all('/*', (req, res) => {
     res.render('index');
 });
 
-
-
-
-
+let portNumber = process.env.PORT || 3030;
 let portNumber = 3030;
 app.listen(portNumber, () => {
   console.log(`Listening on port ${portNumber}`);
