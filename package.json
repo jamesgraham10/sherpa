@@ -4,11 +4,12 @@
   "description": "Simple todo app using the MEAN stack",
   "main": "server.js",
   "scripts": {
-    "test": "node .bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "engines": {
-    "node": "~5.1.0",
-    "npm" : "~3.3.12"
+    "node": "5.1.x",
+    "npm": "3.3.x"
   },
   "author": "James Graham",
   "license": "ISC",
