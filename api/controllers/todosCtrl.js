@@ -64,6 +64,8 @@ todosCtrl.update = (req, res) => {
     user.todos.forEach( (todo) => {
       if (todo.id === todoId) {
         todo.todo = req.body.todo;
+        todo.completed = req.body.completed;
+        todo.completedAt = req.body.completedAt;
       }
     });
     user.save( (err, user) => {
@@ -88,6 +90,5 @@ todosCtrl.delete = (req, res) => {
     });
   });
 };
-
 
 module.exports = todosCtrl;

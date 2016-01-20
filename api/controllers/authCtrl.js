@@ -18,8 +18,10 @@ authCtrl.register = (req, res) => {
     return;
   }
 
-  let user = new User();
-  user.email = req.body.email;
+  let user = new User({
+    email: req.body.email,
+  });
+
   user.setPassword(req.body.password);
 
   user.save( (err) => {
@@ -29,7 +31,12 @@ authCtrl.register = (req, res) => {
       sendJSONResponse(res, 404, err); }
     else {
       token = user.generateJwt();
-      sendJSONResponse(res, 200, { "token" : token });
+      sendJSONResponse(res, 200, { "user" : {
+        email: user.email,
+        id: user._id,
+        token: token
+      }
+    } );
     }
   });
 };
@@ -45,7 +52,12 @@ authCtrl.login = (req, res) => {
     if (err) { sendJSONResponse(res, 404, err); }
     if (user) {
       token = user.generateJwt();
-      sendJSONResponse(res, 200, { "token" : token });
+      sendJSONResponse(res, 200, { "user" : {
+          email: user.email,
+          id: user._id,
+          token: token
+      }
+      });
     } else {
       sendJSONResponse(res, 401, info);
     }

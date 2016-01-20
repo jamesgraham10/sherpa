@@ -6,42 +6,53 @@
 
       $locationProvider.html5Mode(true);
       $urlRouterProvider.otherwise('/');
-
         $stateProvider
-          .state('todos', {
+        .state('todos', {
             url: '/',
             resolve: {
-              token: function ($state, Token) {
-                return Token.isPresent().then(function (status) {
-                  console.log(status)
-                }).catch(function(error){
-                    console.log(error);
-                    $state.go('login');
+              auth: function ($state, Auth) {
+                return Auth.isPresent().then(function (authState) {
+                  console.log(authState);
+                }).catch(function(unauthenticated){
+                    $state.go('auth');
                 });
               }
             },
-            views: {
-              'header@': {
-                controller: 'authController as authCtrl',
-                templateUrl: 'partials/header'
-             },
-             'main@': {
-                controller: 'todosController as todosCtrl',
-                templateUrl: 'partials/todos'
-            },
-            'footer@': {
-                templateUrl: 'partials/footer'
-            }
-          }
+            controller: 'todosController as todosCtrl',
+            templateUrl: 'partials/todos'
         })
-        .state('login', {
+        .state('reports', {
+          url: '/reports',
+          resolve: {
+            auth: function ($state, Auth) {
+              return Auth.isPresent().then(function (authState) {
+                console.log(authState);
+              }).catch(function(unauthenticated){
+                  $state.go('auth');
+              });
+            }
+          },
+          controller: 'reportsController as reportsCtrl',
+          templateUrl: 'partials/reports'
+        })
+        .state('journey', {
+          url: '/journey',
+          resolve: {
+            auth: function ($state, Auth) {
+              return Auth.isPresent().then(function (authState) {
+                console.log(authState);
+              }).catch(function(unauthenticated){
+                  $state.go('auth');
+              });
+            }
+          },
+          controller: 'journeyController as journeyCtrl',
+          templateUrl: 'partials/journey'
+        })
+        .state('auth', {
           url: '/login',
-          views: {
-            'main@': {
-              templateUrl: 'partials/auth',
-              controller: 'authController as authCtrl' }
-          }
+          templateUrl: 'partials/auth',
+          controller: 'authController as authCtrl'
         });
     });
-
 })();

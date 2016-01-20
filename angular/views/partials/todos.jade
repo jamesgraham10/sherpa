@@ -1,15 +1,16 @@
+div(ng-include="'partials/header'")
 {{todosCtrl.error}}
-div.row
+div.row(ng-init="todosCtrl.fetchTodos()")
     h1.heading TODOS
-div.row
-  .flex.todo__b-create
-    form(ng-submit="todosCtrl.createTodo(todo)").form-inline
-        input(type="text", ng-model="todo.todo" ng-keydown="todosCtrl.error = ''").todo-create__input
-        //- button(type="submit").btn.btn-default Add!
-
 div(ng-repeat="todo in todosCtrl.todos" ng-init="todo.saved = true").row.flex.todo 
-    input(type="text" ng-model="todo.todo" ng-blur="todosCtrl.saveTodo(todo); todo.saved = true" ng-focus="todo.saved = false").todo__text
+    input(type="text" ng-model="todo.todo" ng-blur="todosCtrl.saveTodo(todo); todo.saved = true" ng-focus="todo.saved = false" ng-class="{ 'todo__text--complete' : todo.completed }").todo__text
+    input(type="checkbox" ng-model="todo.completed" ng-change="todosCtrl.completeTodo(todo)")
     div.b-todo__icons
       i(ng-click="todosCtrl.deleteTodo(todo)" tabindex="-1").material-icons.todo__icons.todo__icons--delete clear
       i(ng-hide="todo.saved" tabindex="-1").material-icons.todo__icons.todo__icons--saved mode_edit
       i(ng-show="todo.saved" tabindex="-1").material-icons.todo__icons.todo__icons--edit save
+div.row
+  .flex.todo__b-create
+    form(ng-submit="todosCtrl.createTodo(todo)").form-inline
+        input(type="text", ng-model="todo.todo" placeholder="{{todosCtrl.encouragement}}" ng-keydown="todosCtrl.error = ''").todo-create__input
+div(ng-include="'partials/footer'")

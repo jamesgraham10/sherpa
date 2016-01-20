@@ -1,1 +1,6 @@
-button(ng-click="authCtrl.logout()").btn.btn-warning-outline.button--logout Logout
+.header(ng-controller="userController as userCtrl")
+  div.btn-group(role="group")
+    button(ui-sref="todos").btn.btn-primary-outline Trail
+    button(ui-sref="reports").btn.btn-primary-outline Report
+    button(ui-sref="journey").btn.btn-primary-outline Journey
+    button(ng-click="userCtrl.logout()").btn.btn-primary-outline.button--logout Logout

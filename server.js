@@ -24,9 +24,7 @@ app.set('view engine', 'jade');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }) );
-
 app.use(express.static(path.join(__dirname, 'angular') ) );
-
 app.use(passport.initialize());
 
 // Render Angular partials

@@ -1,10 +1,10 @@
 'use strict';
 
-let mongoose = require('mongoose'),
-    Schema   = mongoose.Schema,
-    todosSchema = require('./todos'),
-    crypto = require('crypto'),
-    jwt = require('jsonwebtoken');
+let mongoose       = require('mongoose'),
+    Schema         = mongoose.Schema,
+    todosSchema    = require('./todos'),
+    crypto         = require('crypto'),
+    jwt            = require('jsonwebtoken');
 
 
 let userSchema = new Schema({
@@ -12,7 +12,8 @@ let userSchema = new Schema({
     name: { type : String },
     salt: String,
     hash: String,
-    todos: [todosSchema]
+    todos: [todosSchema],
+    archive: [todosSchema]
   });
 
   userSchema.methods.setPassword = function(password){
