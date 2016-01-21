@@ -9,6 +9,8 @@ let todoSchema = new Schema({
   completed: { type: Boolean, required: true, default: false },
   completedAt: { type: Date },
   archivedAt: { type: Date},
+  hasMission: { type: Boolean, required: true, default: false},
+  mission : { type: String },
   dropped: { type: Boolean, default: false}
 }, { timestamps: {} } );
 

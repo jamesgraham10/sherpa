@@ -8,6 +8,7 @@
         fetch  : fetch,
         create : create,
         save   : save,
+        assignMission : assignMission,
         remove : remove
       }
 
@@ -16,7 +17,9 @@
 
         $http.get('/api/todos', apiConfig)
           .then(function (response) {
-            deferred.resolve(response.data);
+            console.log(response);
+            var response = response.data;
+            deferred.resolve(response);
           })
           .catch(function (err) {
             deferred.reject(err);
@@ -40,13 +43,28 @@
         var deferred = $q.defer();
 
         $http.put('/api/todos/' + todo._id, todo, apiConfig)
+
           .then(function (response) {
-            deferred.resolve('Todo saved');
+            console.log(response);
+            deferred.resolve(response.data);
           }).catch(function(error) {
             deferred.reject(error.data.reason);
           });
       return deferred.promise;
       };
+
+      function assignMission (todo, apiConfig) {
+        var deferred = $q.defer();
+
+        $http.put('/api/todos/mission/' + todo._id, todo, apiConfig)
+          .then(function (response) {
+            console.log(response);
+            deferred.resolve(response.data);
+          }).catch(function(error) {
+            deferred.reject(error.data.reason);
+          });
+      return deferred.promise;
+      }
 
       function remove (todo, apiConfig) {
         var deferred = $q.defer();

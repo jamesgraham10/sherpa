@@ -3,6 +3,7 @@
 let mongoose       = require('mongoose'),
     Schema         = mongoose.Schema,
     todosSchema    = require('./todos'),
+    missionSchema  = require('./missions'),
     crypto         = require('crypto'),
     jwt            = require('jsonwebtoken');
 
@@ -10,10 +11,13 @@ let mongoose       = require('mongoose'),
 let userSchema = new Schema({
     email: { type : String, unique : true, required : true },
     name: { type : String },
+    gender: { type : String },
     salt: String,
     hash: String,
     todos: [todosSchema],
-    archive: [todosSchema]
+    todosArchive: [todosSchema],
+    mission: [missionSchema],
+    missionArchive: [missionSchema]
   });
 
   userSchema.methods.setPassword = function(password){
