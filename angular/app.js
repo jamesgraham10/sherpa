@@ -21,6 +21,10 @@
             controller: 'todosController as todosCtrl',
             templateUrl: 'partials/todos'
         })
+        .state('todos.newMisison', {
+            url: '',
+            templateUrl: 'partials/mission'
+        })
         .state('reports', {
           url: '/reports',
           resolve: {

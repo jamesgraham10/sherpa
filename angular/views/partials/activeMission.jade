@@ -1,0 +1,14 @@
+div(ng-init="todosCtrl.missionDisabled = true ; todosCtrl.missionEditMode = false").active-mission
+  p.lead Current Mission:
+  .input-group.input-group-lg
+    span(class="input-group-addon" id="sizing-addon1")
+      div(ng-include="'images/icons/mountain.svg'" title="Mission Key") 
+    input(type="text" aria-describedby="sizing-addon1" ng-model="todosCtrl.mission.mission" ng-disabled="todosCtrl.missionDisabled" ng-blur="todosCtrl.saveMission(todosCtrl.mission) ; todosCtrl.missionDisabled = true").form-control.text-center.mission-input      
+    span(class="input-group-addon" id="sizing-addon1")
+      div(ng-show="todosCtrl.missionActive" ng-hide="todosCtrl.missionEditMode" ng-include="'images/icons/edit.svg'" ng-click="todosCtrl.missionDisabled = false ; todosCtrl.missionEditMode = true" title="Edit Mission")
+      div(ng-show="todosCtrl.missionEditMode" ng-include="'images/icons/save.svg'" ng-click="todosCtrl.saveMission(todosCtrl.mission) ; todosCtrl.missionDisabled = true" title="Finish Editing") 
+    span(class="input-group-addon" id="sizing-addon1" ng-show="todosCtrl.missionActive")
+      button(ng-disabled="todosCtrl.missionTodosReamining" ng-click="todosCtrl.completeMission(todosCtrl.mission)").button__finish-mission
+        div(ng-include="'images/icons/finishMission.svg'" title="Mark Mission as Complete")
+    span(class="input-group-addon" id="sizing-addon1")
+      div(ng-include="'images/icons/abandon.svg'" ng-click="todosCtrl.deleteMission(todosCtrl.mission)" ng-show="todosCtrl.missionActive" title="Abandon Mission")

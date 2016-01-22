@@ -12,7 +12,6 @@ function sendJSONResponse(res, status, content) {
 
 // Create a todo
 missionCtrl.create = (req, res) => {
-  console.log(req.body);
 
   if (req.token._id) {
     let userId = req.token._id;
@@ -87,7 +86,6 @@ missionCtrl.checkout = (req, res) => {
   let userId = req.token._id;
 
   User.findById(userId, (err, user) => {
-    console.log(user.mission[0]);
     user.todos.forEach(function (todo) {
         if (todo.mission == user.mission[0]._id) {
           todo.archivedAt = Date.now();
@@ -105,10 +103,8 @@ missionCtrl.checkout = (req, res) => {
 
     user.save( (err, user) => {
       if (err) {
-        console.log(err);
         sendJSONResponse(res, 400, { "reason" : "Mission could not checkout!"}); }
       else {
-        console.log("hello");
         let userData = {
           todos: user.todos,
           mission: user.mission

@@ -1,0 +1,18 @@
+div(ng-hide="todosCtrl.todos.length" ng-init="todosCtrl.getEmptyMessage()").row
+  .col-sm-12
+    h1.no-todos-message {{todosCtrl.emptyMessage}}
+.row.todo-list
+  div(ng-repeat="todo in todosCtrl.todos | orderBy: '-hasMission'" ng-init="todo.saved = true").col-sm-10.col-sm-offset-1.todo
+    .input-group
+      span(class="input-group-addon" id="sizing-addon1")
+        div(ng-include="'images/icons/completed.svg'" ng-click="todosCtrl.completeTodo(todo)" title="Mark as Complete").b-svg-todo
+      input(type="text" class="form-control" aria-describedby="sizing-addon1" placeholder="so much todo!" ng-model="todo.todo" ng-blur="todosCtrl.saveTodo(todo); todo.saved = true" ng-keydown="event.keydown === 9 ? todosCtrl.saveTodo(todo) : false" ng-class="{ 'todo__text--complete' : todo.completed }").todo__text
+      span(class="input-group-addon" id="sizing-addon1" ng-show="todosCtrl.missionActive" ng-click="todosCtrl.toggleMissionAssign(todo)")
+        button(ng-disabled="!todosCtrl.missionActive").button__finish-mission
+          div(ng-include="'images/icons/mountain.svg'" title="Add to Mission")
+      span(class="input-group-addon" id="sizing-addon1" ng-click="todosCtrl.deleteTodo(todo)").todo__last-span
+        div(ng-include="'images/icons/abandon.svg'" title="Delete Todo").b-svg-todo
+    button(ng-if="$last" ng-click="todosCtrl.createBlankTodo()").btn.btn-secondary.add-todo
+      div(ng-include="'images/icons/add.svg'" title="Add Todo").b-svg-todo
+    button(ng-if="$last" ng-click="todosCtrl.sweepCompletedTodos(todosCtrl.todos)").btn.btn-secondary.add-todo.add-todo--sweep
+      div(ng-include="'images/icons/archive.svg'" title="Clear Completed Todos").b-svg-todo

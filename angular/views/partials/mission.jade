@@ -1,0 +1,6 @@
+p.lead Create a new mission...
+.row
+  .col-sm-8.col-sm-offset-2
+    .input-group.input-group-lg
+      input(type="text" class="form-control" aria-describedby="sizing-addon1" placeholder="mission name" ng-model="mission.mission")
+      span(class="input-group-addon" id="sizing-addon1" ng-click="todosCtrl.createMission(mission)") Create

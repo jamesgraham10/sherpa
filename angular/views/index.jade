@@ -1,8 +1,7 @@
 extends ./layout.jade
 
 block content
-  div(ng-cloak).container-fluid.container--main
-    
-    div(ui-view)
-    
+  div(ui-view)
+  div(ng-include="'partials/footer'")
   include ./scripts.jade
+  

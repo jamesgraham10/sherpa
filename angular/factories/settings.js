@@ -14,7 +14,6 @@
           headers: { Authorization: 'Bearer ' + $window.localStorage['userToken'] }
         };
 
-        console.log(settings);
 
         var deferred = $q.defer();
 

@@ -1,6 +1,30 @@
-.header(ng-controller="userController as userCtrl")
-  div.btn-group(role="group")
-    button(ui-sref="todos").btn.btn-primary-outline Waypoints
-    button(ui-sref="reports").btn.btn-primary-outline Log
-    button(ui-sref="journey").btn.btn-primary-outline Map
-    button(ng-click="userCtrl.logout()").btn.btn-primary-outline.button--logout Logout
+.header
+  .row
+    .col-sm-8
+      .flex
+        h1.sherpa.sherpa__menu SHERPA 
+        button.btn.btn-secondary.button__menu(type='button' ui-sref="todos").button__menu
+          div(ng-include="'images/icons/signpost.svg'").ng-include--size-fix
+        button.btn.btn-secondary.button__menu(type='button' ui-sref="journey").button__menu
+          div(ng-include="'images/icons/map.svg'").ng-include--size-fix
+        button.btn.btn-secondary.button__menu(type='button' ui-sref="reports").button__menu
+          div(ng-include="'images/icons/report.svg'").ng-include--size-fix
+        button(ng-hide="todosCtrl.missionActive" ui-sref="todos.newMisison").btn.btn-lg.btn-secondary.button__menu.button__menu--new-mission New Mission
+    .col-sm-4
+      .account__menu(ng-controller="userController as userCtrl")
+        .btn-group(role='group')
+          button#btnGroupDrop1.btn.btn-secondary.dropdown-toggle.button__menu.button__menu--dropdown(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false').button__menu.button__menu--right
+            div(ng-include="'images/icons/account(m).svg'")
+          .dropdown-menu.dropdown-menu-right(aria-labelledby='btnGroupDrop1')
+            a.dropdown-item(href='#')
+              div.sub-menu__item
+                div(ng-include="'images/icons/profile(m).svg'")
+                p.sub-menu__item--text Profile
+            a.dropdown-item(href='#')
+              div.sub-menu__item 
+                div(ng-include="'images/icons/settings.svg'")
+                p.sub-menu__item--text Settings
+            a.dropdown-item(ng-click="userCtrl.logout()")
+              div.sub-menu__item
+                div(ng-include="'images/icons/tent.svg'")
+                p.sub-menu__item--text Logout

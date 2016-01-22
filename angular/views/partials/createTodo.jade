@@ -1,0 +1,8 @@
+.b-create-todo
+  .row
+    .col-sm-12
+      button(ng-click="todosCtrl.sweepCompletedTodos(todosCtrl.todos)").btn.btn-warning sweep
+  .row
+    .col-sm-12
+      form(ng-submit="todosCtrl.createTodo(todo)").create-todo
+        input(type="text", ng-model="todo.todo" placeholder="let's go!" ng-keydown="todosCtrl.error = ''").todo-create__input

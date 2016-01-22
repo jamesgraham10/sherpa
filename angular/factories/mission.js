@@ -13,12 +13,10 @@
 
       function create (mission, apiConfig) {
         var deferred = $q.defer();
-        console.log(mission);
         $http.post('/api/mission', mission, apiConfig)
           .then(function (response) {
             deferred.resolve(response.data);
           }).catch(function(err) {
-            console.log(err);
             deferred.resolve(err.data.reason);
           });
         return deferred.promise;

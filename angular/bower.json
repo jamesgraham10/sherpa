@@ -19,6 +19,8 @@
     "angular": "~1.4.8",
     "bootstrap": "4.0.0-alpha.2",
     "angular-ui-router": "ui-router#~0.2.15",
-    "moment": "~2.11.1"
+    "moment": "~2.11.1",
+    "grunt": "~0.4.5",
+    "tether": "~1.1.1"
   }
 }

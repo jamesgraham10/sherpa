@@ -5,7 +5,7 @@ let mongoose = require('mongoose'),
 
 
 let todoSchema = new Schema({
-  todo: { type: String, required: true },
+  todo: { type: String },
   completed: { type: Boolean, required: true, default: false },
   completedAt: { type: Date },
   archivedAt: { type: Date},

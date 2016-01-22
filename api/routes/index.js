@@ -15,6 +15,7 @@ let auth = jwt({
 
 router.get('/user', auth, userCtrl.find);
 
+router.put('/todos', auth, todosCtrl.sweep);
 router.get('/todos', auth, todosCtrl.fetch);
 router.post('/todos', auth, todosCtrl.create);
 router.get('/todos/:todoid', auth, todosCtrl.fetchOne);

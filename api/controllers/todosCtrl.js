@@ -81,7 +81,7 @@ todosCtrl.assignMission = (req, res) => {
             todo.mission = undefined;
             let missionTodos = user.mission[0].todos;
             user.mission[0].todos = missionTodos.filter( (todo) => {
-              return todo != todoId;
+              return todo.id != todoId;
             });
           }
         }
@@ -134,15 +134,55 @@ todosCtrl.delete = (req, res) => {
         todo.dropped = true;
         user.todosArchive.push(todo);
       }
-    })
+    });
     user.todos = user.todos.filter( (todo) => {
       return todo.id !== todoId;
     });
+    if (user.mission.length > 0) {
+      let missionTodos = user.mission[0].todos;
+      user.mission[0].todos = missionTodos.filter( (todo) => {
+        return todo != todoId;
+      });
+    }
     user.save( (err, user) => {
       if (err) { sendJSONResponse(res, 400, { "reason" : "Todo could not be deleted!"}); }
-      else { sendJSONResponse(res, 201, user.todos); };
+      else {
+        let userData = {
+          mission : user.mission,
+          todos   : user.todos
+        };
+        sendJSONResponse(res, 201, userData);
+      };
     });
   });
 };
+
+todosCtrl.sweep = (req, res) => {
+  let userId = req.token._id,
+      todos = req.body;
+
+  let todoIds = todos.map(function (todo) {
+    return todo._id;
+  });
+  User.findById(userId, (err, user) => {
+    todoIds.forEach( (sweepId) => {
+      user.todos.forEach( (todo) => {
+        if (todo.id === sweepId) {
+          todo.archivedAt = Date.now();
+          user.todosArchive.push(todo)
+        }
+      });
+      user.todos = user.todos.filter( (todo) => {
+        return todo.id !== sweepId;
+      });
+    });
+    console.log(user.todoArchive);
+    console.log(user.todos);
+    user.save( (err, user) => {
+      if (err) { sendJSONResponse(res, 400, { "reason" : "Error saving!" }); }
+      else { sendJSONResponse(res, 201, user.todos); };
+    });
+  });
+}
 
 module.exports = todosCtrl;
